@@ -1,0 +1,48 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+env:
+    REPOSITORY_NAME: ${{ github.event.repository.name }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - name: transform Repository variables to lower case
+        run: |
+            echo "REPOSITORY_NAME=${REPOSITORY_NAME@L}" >> "${GITHUB_ENV}"
+
+      - uses: actions/checkout@v4
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          secrets: |
+            LARK_ID
+            LARK_SECRET
+            LARK_UPLOAD_KEY
+          vars: |
+            LARK_HOST
+            BUCKET_BASE_URL
+          command: |
+            whoami
+            r2 bucket create ${{ env.REPOSITORY_NAME }}
+            deploy --minify src/index.tsx
+
+        env:
+          LARK_ID: ${{ secrets.LARK_ID }}
+          LARK_SECRET: ${{ secrets.LARK_SECRET }}
+          LARK_UPLOAD_KEY: ${{ secrets.LARK_UPLOAD_KEY }}
+        
+        vars:
+          LARK_HOST: ${{ vars.LARK_HOST }}
+          BUCKET_BASE_URL: ${{ vars.BUCKET_BASE_URL }}
+        
+      - name: print deployment-url
+        env:
+          DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment-url }}
+        run: echo $DEPLOYMENT_URL
