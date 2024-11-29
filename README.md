@@ -1,8 +1,11 @@
-# idea2app-lark-R2
+# idea2app-Lark-R2
 
-This Cloudflare worker uploads images synchronously from lark base to R2 object storage. To utilize this functionality, you need to set up a lark base workflow which sends an HTTP request to the worker. Subsequently, the worker retrieves the image from Lark and transfers it to R2
+This Cloudflare worker uploads images synchronously from Lark base to R2 object storage. To utilize this functionality, you need to set up a Lark base workflow which sends an HTTP request to the worker. Subsequently, the worker retrieves the image from Lark and transfers it to R2.
 
-[![CI & CD](https://github.com/idea2app/React-MobX-Bootstrap-ts/actions/workflows/main.yml/badge.svg)][1] [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)][2] [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)][3] [![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)][4]
+[![CI & CD](https://github.com/idea2app/idea2app-lark-r2/actions/workflows/main.yml/badge.svg)][1]
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)][2]
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)][3]
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)][4]
 
 ## Preset
 
@@ -28,9 +31,9 @@ You'll need to configure Wrangler using GitHub's Secrets feature - go to "Settin
 
 [![lark base tutorial](https://p16-hera-va.larksuitecdn.com/tos-useast2a-i-hn4qzgxq2n/de8c818e82744147bbef54882744a243~tplv-hn4qzgxq2n-image:0:0.image)]
 
-### Github Action config
+### GitHub Actions configuration
 
-Set GitHub action variables properly to automatically deploy after every push
+Configure GitHub Actions variables to trigger automated deployments after each push.
 
 <!-- @todo add feishu and lark link -->
 
@@ -46,7 +49,7 @@ secrets: |
 vars: |
 # default to be https://open.larksuite.com/open-apis/
     LARK_HOST
-# your bucket base url, which you can set later with custom domains
+# your Bucket base URL, which you can set later with custom domains
     BUCKET_BASE_URL
 ```
 
@@ -64,9 +67,9 @@ npm start
 pnpm deploy
 ```
 
-[1]: https://github.com/idea2app/React-MobX-Bootstrap-ts/actions/workflows/main.yml
-[2]: https://codespaces.new/idea2app/React-MobX-Bootstrap-ts
-[3]: https://gitpod.io/?autostart=true#https://github.com/idea2app/React-MobX-Bootstrap-ts
+[1]: https://github.com/idea2app/idea2app-lark-r2/actions/workflows/main.yml
+[2]: https://codespaces.new/idea2app/idea2app-lark-r2
+[3]: https://gitpod.io/?autostart=true#https://github.com/idea2app/idea2app-lark-r2
 [4]: https://deploy.workers.cloudflare.com/?url=https://github.com/idea2app/idea-lark-r2
 [5]: https://developers.cloudflare.com/workers/wrangler/ci-cd/#api-token
 [6]: https://www.larksuite.com/hc/en-US/articles/360048487755-use-lark-flow

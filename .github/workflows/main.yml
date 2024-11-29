@@ -17,7 +17,7 @@ jobs:
             echo "REPOSITORY_NAME=${REPOSITORY_NAME@L}" >> "${GITHUB_ENV}"
 
       - uses: actions/checkout@v4
-      - name: Deploy
+      - name: Deploy to CloudFlare
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -31,7 +31,7 @@ jobs:
           command: |
             whoami
             r2 bucket create ${{ env.REPOSITORY_NAME }}
-            deploy --minify src/index.tsx
+            deploy --minify src/index.ts
 
         env:
           LARK_ID: ${{ secrets.LARK_ID }}
@@ -42,7 +42,7 @@ jobs:
           LARK_HOST: ${{ vars.LARK_HOST }}
           BUCKET_BASE_URL: ${{ vars.BUCKET_BASE_URL }}
         
-      - name: print deployment-url
+      - name: Print Deployment URL
         env:
           DEPLOYMENT_URL: ${{ steps.deploy.outputs.deployment-url }}
         run: echo $DEPLOYMENT_URL
