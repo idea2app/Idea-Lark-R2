@@ -1,9 +1,4 @@
-export interface LarkAppOption {
-    host: string;
-    id: string;
-    secret: string;
-}
-
+export type LarkAppOption = Record<'host' | 'id' | 'secret', string>;
 export interface TenantToken {
     expire: number;
     tenant_access_token: string;
